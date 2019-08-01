@@ -1,0 +1,36 @@
+<div id="pnlRegistro">
+  <div class="table-responsive project-stats">
+    <table class="table table-striped table-sm table-hover">
+      <thead class="thead-default">
+        <th nowrap>Tipo Cliente</th>
+        <th nowrap>Ubicacion</th>
+        <th nowrap>vigencia</th>
+        <th nowrap>Producto</th>
+        <th nowrap>Producto</th>
+      </thead>
+      <tbody id="pnlContratos">
+      </tbody>
+    </table>
+    </div>
+    <div id="pnlPg"></div>
+  </div>
+  <script type="text/javascript">
+
+  (function(){
+    openDb();
+    var store = getObjectStore('contratos', 'readwrite');
+    store.count().onsuccess = function(event) {console.log(event.target.result);}    
+    store.getAll().onsuccess = function(event) {
+      console.log("Contratos..", event.target.result);
+      event.target.result.map(reg => 
+        $("#pnlContratos").append(`<tr>
+          <td>${reg.tipoCliente}</td>
+          <td>${reg.ubicacion}</td>
+          <td>${reg.fechaInicio} ${reg.fechaFin}</td>
+          <td>${reg.producto}</td>
+        </tr>`) 
+      )
+    }
+  })();
+  
+  </script>

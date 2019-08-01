@@ -1,0 +1,7 @@
+[
+  {"id":"1", "nombre":"BOLIVIA", "codigo":"BO", "direccion":"CALLE"},
+  {"id":"2", "nombre":"LA PAZ", "codigo":"LP", "direccion":"CALLE"},
+  {"id":"3", "nombre":"SANTA CRUZ", "codigo":"SC", "direccion":"CALLE"},
+  {"id":"4", "nombre":"COCHABAMBA", "codigo":"CB", "direccion":"CALLE"},
+  {"id":"5", "nombre":"SUCRE", "codigo":"SR", "direccion":"CALLE"}
+]

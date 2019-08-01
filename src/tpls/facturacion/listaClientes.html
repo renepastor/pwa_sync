@@ -1,0 +1,65 @@
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script-->
+<div id="pnlRegistro">
+    <input type="search" id="btnBuscar">
+    <input type="button" id="btnBuscarX" class="btn btn-primary" value="Buscar"/>
+  
+  <div class="" id="table-container">
+    <table class=""  id="maintable">
+      <thead class="thead-default">
+        <th nowrap>Razón Social</th>
+        <th nowrap>NIT</th>
+        <th nowrap>Contrato</th>
+      </thead>
+      <tbody id="pnlClientes">
+      </tbody>
+    </table>
+    <div id="bottom_anchor"></div>
+    </div>
+
+    <div id="pnlPg"></div>
+  </div>
+  <script type="text/javascript">
+   
+    
+  (function(){
+    openDb();
+  })();
+  
+$("#btnBuscar").on("click", function(){
+    var store = getObjectStore('clientes', 'readwrite');
+    //store.count().onsuccess = function(event) {console.log(event.target.result);}    
+    store.getAll().onsuccess = function(event) {
+      event.target.result.map(reg => 
+        $("#pnlClientes").append(`<tr>
+          <td>${reg.razonSocial}</td>
+          <td>${reg.nit}</td>
+        </tr>`) 
+      )
+    }
+})
+function moveScroll(){
+    var scroll = $(window).scrollTop();
+    var anchor_top = $("#maintable").offset().top;
+    var anchor_bottom = $("#bottom_anchor").offset().top;
+    console.log("scroll...",scroll, "--","top...",anchor_top, "--", "Botom...", anchor_bottom);
+    if (scroll>anchor_top && scroll<anchor_bottom) {
+    clone_table = $("#clone");
+    if(clone_table.length == 0){
+        clone_table = $("#maintable").clone();
+        clone_table.attr('id', 'clone');
+        clone_table.css({position:'fixed',
+                 'pointer-events': 'none',
+                 top:50});
+        clone_table.width($("#maintable").width());
+        $("#table-container").append(clone_table);
+        $("#clone").css({visibility:'hidden'});
+        $("#clone thead").css({visibility:'visible'});
+    }
+    } else {
+    $("#clone").remove();
+    }
+}
+$(window).scroll(moveScroll);
+
+  </script>

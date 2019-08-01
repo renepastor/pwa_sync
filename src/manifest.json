@@ -1,0 +1,30 @@
+{
+	"name": "Sistema \r ASIR \n Y.P.F.B.",
+	"short_name": "ASIR Y.P.F.B.",
+	"description": "Aplicacion de YPFB",
+	"start_url": "./#home",
+	"display": "standalone",
+	"orientation": "portrait",
+	"background_color": "#022E56",
+	"theme_color": "#022E56",
+	"scope" : "./",
+	"lang" : "es-BO",
+	"icons": [
+		{
+			"src": "./img/ypfb.jpg",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "./img/ypfb.jpg",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"author": {
+		"name": "Rene Pastor Mamani Flores",
+		"website": "https://fbt.ypfb.bo"
+	},
+	"gcm_sender_id": "274065036763698",
+	"gcm_user_visible_only": true
+}

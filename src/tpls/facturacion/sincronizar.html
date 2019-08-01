@@ -1,0 +1,62 @@
+
+<div class="modal-dialog modal-lg" role="document">
+  <form class="csForm modal-content" id="formModificarEessProductos">
+   <fieldset>
+    <div class="modal-header p-0">
+      <legend class="modal-title" id="exampleModalLongTitle">  &nbsp; Sincronización de Facturas</legend>
+      
+    </div>
+    <div class="modal-body">
+      <div class="row align-items-start">
+        <div class="form-group col">
+          <label for="producto">Cantidad de facturas por sincronizar : </label>
+          <input type="text" name="producto" id="producto" required="required" placeholder="Producto" size="30" class="form-control text">
+        </div>
+        <div class="form-group col">
+          <label for="color">Fecha Hora de Ultima Actualización : </label>
+          <input type="text" name="color" id="color" required="required" placeholder="Color" size="30" class="form-control text">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-center p-2">
+      <button type="button" class="btn btn-sm btn-primary" id="addBtnSincronizar">
+        <i class="fa fa-refresh"></i> Sincronizar
+      </button>
+    </div>
+   </fieldset>
+  </form>
+</div>
+<script type="text/javascript">
+  (function(){
+    openDb();
+  })();
+
+  if (!window.indexedDB) {
+      console.log("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+  }
+  var addBtnSincronizar = document.getElementById("addBtnSincronizar");
+     
+  addBtnSincronizar.addEventListener("click", function(){
+        // Borrando tabla
+        //var store = getObjectStore("contratos", 'readwrite');
+        //var req = store.clear();
+        dropDB();
+        let SER_UFIC = "http://localhost:8004/json/";
+        var apiRequest1 = fetch(SER_UFIC+"clientes.json").then(response => response.json());
+        var apiRequest2 = fetch(SER_UFIC+"contratos.json").then(response => response.json());
+        var apiRequest3 = fetch(SER_UFIC+"pais.json").then(response => response.json());
+        var combinedData = {};
+        Promise.all([apiRequest1,apiRequest2,apiRequest3]).then(function(values){
+            //combinedData["apiRequest1"] = values[0];
+            //combinedData["apiRequest2"] = values[1];
+            console.log("ssssss......", values);
+            values[0].map(cliente => addPublication(cliente, "clientes"));
+            values[1].map(contrato => addPublication(contrato, "contratos"));
+            values[2].map(pais => addPublication(pais, "pais"));
+        }).catch(err => console.log("error...", err));
+
+        //  var store = getObjectStore(DB_STORE_NAME, 'readwrite');        
+        //displayPubList(store);
+    })
+  
+</script>
